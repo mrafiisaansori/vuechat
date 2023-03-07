@@ -1,7 +1,7 @@
 <template>
-  <form @submit.prevent="handleSubmit">
-    <div class="alert alert-danger">
-      Error message!
+  <form @submit.prevent="handleSubmit" >
+    <div class="alert alert-danger" v-if="error">
+      {{ error }}
     </div>
     <h3 class="h3 mb-3 fw-normal">Register</h3>
     <div class="form-floating">
@@ -26,7 +26,7 @@
 import { ref } from 'vue';
 import useRegister from '../../composable/useRegister.js';
 export default {
-  setup(){
+  setup(props,context){
     const name = ref('')
     const email = ref('')
     const password = ref('')
@@ -34,10 +34,10 @@ export default {
     const handleSubmit = async() => {
       await register(name.value, email.value, password.value)
       if(!error.value){
-        console.log(error.value)
+        context.emit('register')
       }
     }
-    return { name,email,password,handleSubmit }
+    return { name,email,password,error,handleSubmit }
   }
 }
 </script>

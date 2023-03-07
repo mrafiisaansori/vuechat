@@ -1,65 +1,42 @@
 <template>
-  <div class="chat-box">
-    <div class="chat-bubble">
+  <div v-if="documents" ref="chat" class="chat-box">
+    <div class="chat-bubble" v-for="doc in formattedDocuments" :key="doc.id">
       <div class="chat-head">
-        <div>Admin</div>
-        <div>3 min ago</div>
+        <div>{{ doc.name }}</div>
+        <div>{{ doc.createdAt }}</div>
       </div>
       <div class="chat-body">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-      </div>
-    </div>
-    <div class="chat-bubble">
-      <div class="chat-head">
-        <div>Admin</div>
-        <div>3 min ago</div>
-      </div>
-      <div class="chat-body">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-      </div>
-    </div>
-    <div class="chat-bubble">
-      <div class="chat-head">
-        <div>Admin</div>
-        <div>3 min ago</div>
-      </div>
-      <div class="chat-body">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-      </div>
-    </div>
-    <div class="chat-bubble">
-      <div class="chat-head">
-        <div>Admin</div>
-        <div>3 min ago</div>
-      </div>
-      <div class="chat-body">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-      </div>
-    </div>
-    <div class="chat-bubble">
-      <div class="chat-head">
-        <div>Admin</div>
-        <div>3 min ago</div>
-      </div>
-      <div class="chat-body">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-      </div>
-    </div>
-    <div class="chat-bubble">
-      <div class="chat-head">
-        <div>Admin</div>
-        <div>3 min ago</div>
-      </div>
-      <div class="chat-body">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+       {{ doc.message }}
       </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {
+import getCollection from '../../composable/getCollection'
+import { computed,onUpdated, ref } from 'vue'
+import { formatDistanceToNow } from 'date-fns'
 
+export default {
+  setup(){
+    const { error,documents } = getCollection('message')
+    const chat = ref(null)
+
+    const formattedDocuments = computed(()=>{
+      if(documents.value){
+        return documents.value.map((doc)=>{
+          let time = formatDistanceToNow(doc.createdAt.toDate())
+          return { ...doc, createdAt:time }
+        })
+      }
+    })
+
+    onUpdated(()=>{
+      chat.value.scrollTop = chat.value.scrollHeight
+    })
+
+    return { error,documents,chat,formattedDocuments }
+  }
 }
 </script>
 

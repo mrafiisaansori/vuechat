@@ -6,7 +6,7 @@ const error = ref(null);
 const register =  async(name,email,password) => {
   error.value = null;
   try {
-    const res =  await projectAuth.createUserWithEmailAndPassoword(email,password)
+    const res =  await projectAuth.createUserWithEmailAndPassword(email,password)
     if(!res){
       throw new Error("could not complete the signup")
     }
