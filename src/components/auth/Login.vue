@@ -3,7 +3,7 @@
     <div class="alert alert-danger" v-if="error">
       {{ error }}
     </div>
-    <h3 class="h3 mb-3 fw-normal">Login</h3>
+    <h3 class="h3 mb-3 fw-normal">Raftech Chat</h3>
     <div class="form-floating">
       <input type="email" class="form-control" v-model="email">
       <label for="">Email Address</label>

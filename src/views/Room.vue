@@ -1,8 +1,8 @@
 <template>
     <Navbar/>
-    <main class="content mt-2 shadow-sm p-0">
+    <main class="content mt-3 shadow-sm p-0">
       <div class="bg-secondary text-white">
-        <h3 class="p-2">Chat Group</h3>
+        <h3 class="p-2">Chat</h3>
       </div>
       <div class="chat-wrapper">
         <Chatbox/>

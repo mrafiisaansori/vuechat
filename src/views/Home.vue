@@ -2,14 +2,14 @@
   <div class="form-auth">
     <div v-if="showLogin">
       <Login @login="accessRoom"/>
-      <p>
+      <p class="mt-2">
         Don't have an account?
         <a href="#" @click="showLogin = false">Register Here</a>
       </p>
     </div>
     <div v-else>
       <Register @register="accessRoom"/>
-      <p>
+      <p class="mt-2">
         Already  have an account?
         <a href="#" @click="showLogin = true">Login Here</a>
       </p>
@@ -40,3 +40,9 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+a{
+  text-decoration: none;
+}
+</style>
